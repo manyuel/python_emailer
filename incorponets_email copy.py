@@ -1,12 +1,21 @@
 import smtplib
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import openpyxl
 
+def attach_file(msg, filepath):
+    with open(filepath, "rb") as attachment:
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+        encoders.encode_base64(part)
+        part.add_header("Content-Disposition", f"attachment; filename= {filepath}")
+        msg.attach(part)
 
 def send_email(subject, recipient, message):
-    from_email = "your_email_here"
-    password = "your_pw_here"
+    from_email = "your_email_here" #añadir correo
+    password = "your_pw_here" #añadir pw o app pw
     to_email = recipient["email"]
 
     msg = MIMEMultipart()
@@ -15,11 +24,14 @@ def send_email(subject, recipient, message):
     msg["Subject"] = subject
     msg.attach(MIMEText(message, "html"))
 
-    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server = smtplib.SMTP("smtp.office365.com", 587)
     server.starttls()
     server.login(from_email, password)
     server.sendmail(from_email, to_email, msg.as_string())
     server.quit()
+
+    file_to_attach = "path/to/your/file.txt" #añadir archivos
+    attach_file(msg, file_to_attach)
 
 
 def main():
@@ -43,7 +55,6 @@ def main():
             print(f"Email sent to {name} ({company}): {email}")
         else:
             print("Invalid row format:", row)
-
 
 
 if __name__ == "__main__":
