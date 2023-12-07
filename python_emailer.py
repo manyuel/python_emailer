@@ -41,7 +41,7 @@ def send_email(subject, recipient_emails, cc_emails, message, attachment_path):
     attach_file(msg, attachment_path)
 
     recipients = recipient_emails + cc_emails
-    server = smtplib.SMTP("smtp.office365.com", 587)
+    server = smtplib.SMTP("smtp.email_provider.com", 587)
     server.starttls()
     server.login(from_email, password)
     server.sendmail(from_email, recipients, msg.as_string())
