@@ -28,13 +28,13 @@ def format_names(names_list):
 
 
 def send_email(subject, recipient_emails, cc_emails, message, attachment_path):
-    from_email = "havasgcr@havas.com"
+    from_email = "xyz@email.com"
     password = "your_pw_here"  # pw o app-gen pw
 
     msg = MIMEMultipart()
     msg["From"] = from_email
     msg["To"] = recipient_emails
-    msg["CC"] = "lynnise.harrington@havas.com, kaila.chapman@havas.com".join(cc_emails) # put myself on cc
+    msg["CC"] = "boss@email.com, boss_assistant@email.com".join(cc_emails) # put myself on cc
     msg["Subject"] = subject
     msg.attach(MIMEText(message, "html"))
 
@@ -52,8 +52,8 @@ def main():
     excel_file = "recipients.xlsx"
     template_file = "email_template.html"
     current_month = datetime.now().strftime('%B')
-    subject = f"TEST {current_month} Global Client Reporting Updates"
-    cc_emails = {"lynnise.harrington@havas.com", "kaila.chapman@havas.com"}
+    subject = f"TEST {current_month} Reporting Updates"
+    cc_emails = {"boss@email.com, boss_assistant@email.com"}
 
     wb = openpyxl.load_workbook(excel_file)
     sheet = wb.active
