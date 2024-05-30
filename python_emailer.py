@@ -29,12 +29,12 @@ def format_names(names_list):
 
 def send_email(subject, recipient_emails, cc_emails, message, attachment_path):
     from_email = "xyz@email.com"
-    password = "your_pw_here"  # pw o app-gen pw
+    password = "your_pw_here"
 
     msg = MIMEMultipart()
     msg["From"] = from_email
     msg["To"] = recipient_emails
-    msg["CC"] = "boss@email.com, boss_assistant@email.com".join(cc_emails) # put myself on cc
+    msg["CC"] = "boss@email.com, boss_assistant@email.com".join(cc_emails)
     msg["Subject"] = subject
     msg.attach(MIMEText(message, "html"))
 
